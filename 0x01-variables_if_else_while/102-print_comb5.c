@@ -30,6 +30,7 @@ int main(void)
 					putchar(',');
 					putchar(' ');
 				}
+				j = '0';
 			}
 		}
 	}
