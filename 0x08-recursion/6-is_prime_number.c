@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * prime - A function that tests for prime numbers
+ * check_prime - A function that tests for prime numbers
  *
  * @n: Number to be tested
  *
