@@ -27,10 +27,15 @@ char *_strdup(char *str)
 	}
 	else
 	{
+		if (ptr_str < str)
+		{
+			return (NULL);
+		}
 		for (i = 0; *(str + i) != '\0'; i++)
+		{
 			ptr_str[i] = str[i];
+		}
 		ptr_str[i] = '\0';
 		return (ptr_str);
-		free(ptr_str);
 	}
 }
