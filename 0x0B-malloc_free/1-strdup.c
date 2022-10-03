@@ -24,8 +24,8 @@ char *_strdup(char *str)
 		ptr_str[i] = '\0';
 		return (ptr_str);
 	}
-	else
-	{
+	else if ((ptr_str != NULL) && (ptr_str < str))
 		return (NULL);
-	}
+	else
+		return (NULL);
 }
