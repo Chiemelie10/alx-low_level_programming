@@ -16,21 +16,17 @@ char *_strdup(char *str)
 	char *ptr_str;
 	int i;
 
-	ptr_str = (char *) malloc(strlen(str) + 1);
 	if (str == NULL)
 	{
 		return (NULL);
 	}
+	ptr_str = (char *) malloc(strlen(str) + 1);
 	if (ptr_str == NULL)
 	{
 		return (NULL);
 	}
 	else
 	{
-		if (ptr_str < str)
-		{
-			return (NULL);
-		}
 		for (i = 0; *(str + i) != '\0'; i++)
 		{
 			ptr_str[i] = str[i];
