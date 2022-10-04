@@ -27,8 +27,8 @@ char *str_concat(char *s1, char *s2)
 	if (concat == NULL)
 		return (NULL);
 	for (i = 0; i < leng_s1; i++)
-		concat[i] = s1[i];
+		*(concat + i) = *(s1 + i);
 	for (j = 0; i <= size; i++, j++)
-		concat[i] = s2[j];
+		*(concat + i) = *(s2 + j);
 	return (concat);
 }
