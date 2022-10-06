@@ -16,19 +16,18 @@
 
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	unsigned int *ptr_array;
+	char *ptr_array;
 	unsigned int i;
 
 	if ((nmemb == 0) || (size == 0))
 		return (NULL);
 
-	ptr_array = (unsigned int *)malloc(sizeof(unsigned int) * nmemb);
+	ptr_array = malloc(size * nmemb);
 	if (ptr_array == NULL)
 		return (NULL);
 
 	for (i = 0; i < nmemb; i++)
 		ptr_array[i] = 0;
 
-	free(ptr_array);
 	return (ptr_array);
 }
