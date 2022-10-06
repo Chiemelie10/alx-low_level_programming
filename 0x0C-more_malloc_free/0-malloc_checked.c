@@ -7,7 +7,7 @@
  * @b: The value of memory allocated
  *
  * Return: A pointer to the allocated memory if success, otherwise
- * normal process termination with a status of 98 if malloc fails
+ * a normal process termination with a status of 98 if malloc fails
  */
 
 void *malloc_checked(unsigned int b)
