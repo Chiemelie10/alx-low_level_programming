@@ -1,62 +1,134 @@
 #include "lists.h"
 
 /**
- * dlistint_len - Deletes node at index
- * @h: pointer to the list
- * Return: number of nodes
+ * dlistint_leng - Gets the length of dlistint_t linked list
+ * @h: A pointer to the start of the list
+ *
+ * Return: Number of nodes in the list
  */
-size_t dlistint_len(const dlistint_t *h)
+size_t dlistint_leng(const dlistint_t *h)
 {
-	size_t nodes = 0;
+	const dlistint_t *current;
+	unsigned int n;
 
-	if (!h)
+	current = h;
+	n = 0;
+
+	if (h == NULL)
 		return (0);
 
-	while (h)
+	while (current != NULL)
 	{
-		nodes++;
-		h = h->next;
+		n++;
+		current = current->next;
 	}
 
-	return (nodes);
+	return (n);
 }
 
 /**
- * delete_dnodeint_at_index - deltes a node in a doubly linked list
- * at a given index
- * @head: double pointer to the list
- * @index: index of the node to delete
+ * delete_dnodeint_at_start - Deletes the node at the beginning of
+ * dlistint_t list
+ * @head: A pointer to the start of the list
  *
- * Return: 1 on success, -1 on failure
+ * Return: 1 if successful, -1 if it fails
  */
+
+int delete_dnodeint_at_start(dlistint_t **head)
+{
+	dlistint_t *current;
+
+	current = *head;
+
+	if (*head == NULL)
+		return (-1);
+
+	current = current->next;
+	current->prev = NULL;
+	free(*head);
+	*head = current;
+	current = NULL;
+
+	return (1);
+}
+
+/**
+ * delete_dnodeint_at_end - Deletes a node at the end of dlistint_t list
+ * @head: A pointer to the start of the list
+ *
+ * Return: 1 if successful, -1 if it fails
+ */
+
+int delete_dnodeint_at_end(dlistint_t **head)
+{
+	dlistint_t *current;
+	dlistint_t *behind;
+
+	current = *head;
+
+	if (*head == NULL)
+		return (-1);
+
+	while (current->next != NULL)
+		current = current->next;
+
+	behind = current->prev;
+	behind->next = NULL;
+	free(current);
+	current = NULL;
+	behind = NULL;
+
+	return (1);
+}
+
+/**
+ * delete_dnodeint_at_index - Deletes a node at a given index
+ * of dlistint_t list
+ * @head: A pointer to the start of the node
+ * @index: The position of the node to be deleted
+ *
+ * Return: 1 if successful, -1 if it fails
+ */
+
 int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 {
-	dlistint_t *temp = *head;
+	dlistint_t *current, *behind;
 	unsigned int i = 0;
+	int number;
 
-	if (*head == NULL || dlistint_len(temp) < index + 1)
+	current = *head;
+
+	if (*head == NULL || dlistint_leng(current) <= index)
 		return (-1);
 
 	if (!index)
 	{
-		(*head) = temp->next;
-		if (temp->next)
-			temp->next->prev = NULL;
-		temp->next = NULL;
-		free(temp);
+		*head = current->next;
+		if (current->next)
+			current->next->prev = NULL;
+		current->next = NULL;
+		free(current);
 		return (1);
 	}
-
+	if (index == 0)
+	{
+		number = delete_dnodeint_at_start(head);
+		return (number);
+	}
 	while (i < index)
 	{
-		temp = temp->next;
+		current = current->next;
 		i++;
 	}
-
-	temp->prev->next = temp->next;
-	if (temp->next)
-		temp->next->prev = temp->prev;
-	free(temp);
-
+	if (current->next == NULL)
+	{
+		number = delete_dnodeint_at_end(head);
+		return (number);
+	}
+	behind = current->prev;
+	behind->next = current->next;
+	current->next->prev = behind;
+	free(current);
+	current = NULL;
 	return (1);
 }
